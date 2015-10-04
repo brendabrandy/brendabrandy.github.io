@@ -1,0 +1,19 @@
+body {
+    background-color: white;
+}
+
+h1 {
+    color: red;
+    padding-left: 150px;
+}
+
+img{
+	float:left;
+	padding-left:10px;
+}
+
+p{
+	padding-top:15px;
+	padding-right:150px;
+
+}
