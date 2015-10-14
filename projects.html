@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device=width,initial-scale=1.0">
   <link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="contact.css" rel="stylesheet">
+  <script type="application/javascript" src="projectscripts.js"></script>
 </head>
 <nav class="navbar navbar-inverse navbar-fixed">
   <div class="container-fluid">
@@ -16,11 +16,9 @@
 	</ul>
   </div>
 </nav>
-
-<body>
-
-
-
-</body>
+ <body>
+   <canvas id="myCanvas" width="2000" height="1000" onmousemove = "mousePos(event)"></canvas>
+   <p id="debugger"> </p>
+ </body>
 
 </html>
