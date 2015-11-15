@@ -1,48 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-<div id="header"></div>
-<meta name="viewport" content="width=device=width,initial-scale=1.0">
-<script type="application/javascript" src="projectscripts.js"></script>
-<link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
-<script src = "http://code.jquery.com/jquery-latest.min.js"></script>
+	<meta name="viewport" content="width=device=width,initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" href="animate.min.css">
+	<link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+	<script type="application/javascript" src="projectscripts.js"></script>
+	<script src = "http://code.jquery.com/jquery-latest.min.js"></script>
 
 </head>
 <body>
-	<div id="menu"></div>
-	<div class = "container">
-		<div class="jumbotron">
-			<h1 class = "text-muted"><a href="bio.css">Bio </h1>
-		</div>
+
+	<!--- Title and animation-->
+
+	<div class="title">
+		
+		<h4> Hi, I am Brenda and </h4>
+		<img class = "coder" src="Coder/coder.jpg" alt="Coder"\>
+		<img class = "maker" src="Coder/maker.jpg" alt="Coder"\>
+		<img class = "dancer" src="Coder/dancer.jpg" alt="Coder"\>
+		<img class = "learner" src="Coder/learner.jpg" alt="Coder"\>
+		<p> I am a __________. </p>
+
 	</div>
-	
-	<div class = "container">
 
-		<div class="row">
+	<!--- For the five buttons that people push on-->
+	<div class = "labels">
+		<div class="row toptop-buffer">
 
-			<div class="col-sm-1"></div>
-
-			<div class="col-sm-4">
-				<a href="#"><img src="propic.jpg" class="img-rounded" alt="Propic" width="354" height="354">
+			<!-- About Me -->
+			<div class = "col-sm-1"></div>
+			<div class = "col-sm-3" id = "aboutme">
+				<a href = "aboutme.html" type="button" class="btn btn-danger btn-block"><font size = "5">About Me</font></a>
 			</div>
 
-			<div class="col-sm-7">
-				<p>Brenda is a sophomore in electrical engineering who is studying in the Cooper Union for the Advancement of Science and Art. Prior to the Cooper Union, Brenda studied in Good Hope School in Hong Kong, where she attained top 5 within her grade for five years. She also attended Li Po Chun United World College for the International Bacclaureate (IB), where she completed an indepedent research in Mathematics and Chemistry and attained 42/45 as her final grade. </p>
-
-				<p>In the Cooper Union, not only did Brenda maintained a 3.9 G.P.A. , she also devoted herself to different activities around school. As an avid member of the Toastmasters, she was invited to become VP Membership of the club and facilitated the enrollment of new members into the club. She also started a Cooper Cycles, a club that unites cyclists around Cooper and offer cycling related activities, such as bike tours and bike maintenance class, to the student body.</p>
-
-				<p>In her spare time, Brenda likes to explore New York through cycling and photography. She also likes hip hop and ballroom dancing.</p>
-
+			<!--- Resume -->
+			<div class = "col-sm-3" id = "resume">
+				<a href = "resume.html" type="button" class="btn btn-warning btn-block"><font size = "5">Resume</font></a>
 			</div>
+			<div class = "col-sm-5"></div>
+		</div>
+
+
+		<div class="row top-buffer">
+			<div class = "col-sm-1"></div>
+
+			<!--- Projects -->
+			<div class = "col-sm-3" id = "projects">
+				<a href = "projects.html" type="button" class="btn btn-info btn-block"><font size ="5">Projects</font></a>
+			</div>
+
+			<!-- Contact -->
+			<div class = "col-sm-3" id = "contacts">
+				<a href = "contact.html" type="button" class="btn btn-success btn-block"><font size ="5">Contact</font></a>
+			</div>
+			<div class = "col-sm-5"></div>
+		</div>
+
+		<!--- Enter Button -->
+		<div class="row top-buffer" id = "enter">
+			<div class = "col-sm-1"></div>
+			<div class = "col-sm-6" align = "center">
+					<a href = "home.html" button type="button" class="btn btn-link"><font color = "black" size = "5">Enter</font></a>
+			</div>
+			<div class = "col-sm-5"></div>
 		</div>
 	</div>
+
   <script> 
 	$(function(){
-  	  	$("#header").load("header.html"); 
-  	  	$("#menu").load("menu.html");
-  	  	$("#menu.index").addClass("active");
-  	  
+  	  	$(".maker").hide();
+  	  	$(".learner").hide();
+  	  	$(".dancer").hide();
+	});
+	$(function toggler(){
+		$(".coder").fadeIn(3000);
+		$(".coder").fadeOut(3000);
+		$(".maker").delay(3000);
+		$(".maker").fadeIn(3000);
+		$(".maker").fadeOut(3000);
+		$(".dancer").delay(9000);
+		$(".dancer").fadeIn(3000);
+		$(".dancer").fadeOut(3000);
+		$(".learner").delay(15000);
+		$(".learner").fadeIn(3000);
+		$(".learner").fadeOut(3000);
+		window.setTimeout(toggler, 21000);
 	});
   </script> 
+
+ 
 </body>
 </html>

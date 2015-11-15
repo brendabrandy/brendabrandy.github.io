@@ -14,14 +14,27 @@
 
 
 	<body>
-		<div id = "menu"></div>
-		<h1> Resume </h1>
-		<p> There is still more to come, stay tuned! </p>
 
+		<div class = "wrapper">
+			<div id = "menu"></div>
+
+			<div class = "container" style = "margin-left: 150px;">
+
+			<h1 style = "color: black"> Resume </h1>
+			<hr>
+			<p> <font size = "3"> To see my most up-to-date resume, please click
+			<a href = "Resume_Brenda.pdf"> here </a></font>
+			</p>
+			</div>
+
+			<div id = "footer"></div>
+
+		</div>
 		<script> 
 			$(function(){
 		  	  	$("#header").load("header.html"); 
 		  	  	$("#menu").load("menu.html");
+		  	  	$("#footer").load("footer.html");
 		  	  	$("#menu.index").addClass("active");
 		  	  
 			});

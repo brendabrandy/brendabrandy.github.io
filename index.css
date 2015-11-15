@@ -1,0 +1,38 @@
+.title{
+	margin-left:200px;
+	margin-bottom:10px;
+	margin-top:50px;
+}
+
+p{
+	position:absolute;
+	top:200px;
+	font-size:75px;
+}
+
+h4{
+	position:absolute;
+	top:130px;
+	margin-left:200px;
+}
+
+img{
+	position:absolute;
+	top:170px;
+	left:415px;
+	width:400px;
+	height:150px;
+
+}
+
+.toptop-buffer{
+
+	padding-top:300px;
+}
+
+.top-buffer{
+	padding-top:50px;
+	margin-bottom: 20px;
+}
+
+
