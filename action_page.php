@@ -14,6 +14,4 @@ Message: ".$message."
 mail ('sogun3@gmail.com', "New Enquiry", $email_message);
 header ("Location: email_sucess.php");
 
-error_page 405 = 200 ;
-
 ?>
