@@ -4,7 +4,10 @@
 		<div id="header"></div>
 		<meta name="viewport" content="width=device=width,initial-scale=1.0">
 		<link href="../bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../prism.css">
 		<script src = "http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="../prism.js"></script>
+		
 </head>
 
 <body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
@@ -14,24 +17,235 @@
 
 		<h1 style = "color: black; text-align : center"> CIRCUITSLEAP </h1>
 		<hr>
-
-		<div class = "row" style = "text-align:center">
-
-			<img title="working" alt="working" src="http://cdn.flaticon.com/png/256/3497.png" />
-
-			<p> Still working on it!</p>
-
-		</div>
-
 		<div class = "row">
 
 			<nav class = "col-sm-3" id = "myScrollSpy">
 
 				<ul class="nav nav-pills nav-stacked">
+					<li><a href="#objective">Objective</a></li>
+	          		<li><a href="#introduction">Introduction</a></li>
+	          		<li><a href="#framework">Framework</a></li>
+	          		<li><a href="#connect">Connect Unity with Leap Motion</a></li>
+	          		<li><a href="#detect">Detect Hand Motion and Position</a></li>
+	          		<li><a href="#close">Close the Circuit</a></li>
+	          		<li><a href="#nextsteps">Next Steps</a></li>
+
         		</ul>
       		</nav>
 
 			<div class = "col-sm-9">
+
+				<div id = "objective">
+
+					<h3>Objective </h3>
+					<p> To use leap motion and draw a closed circuit on Unity Game Engine with only hand gestures </p>
+
+				</div>
+
+				<div id = "introduction">
+
+					<h3>Introduction </h3>
+					<p> As an electrical engineer in college, we spend a lot of time designing and drawing circuits on the computer. One then would understand the tedious process of locating different symbols in the computer and accomodating to a myriad of circuit design software. Hence, we would like to design a software that allows user to make a circuit at the tip of their fingers. </p>
+
+					<p>
+					At each instant, as long as the user's hand is within the detection range of the Leap Motion, Leap Motion would detect the coordinates of the user's fingertips and center of hand and what gestures are the users doing. We exploited this feature of leap motion and allows users to put circuit elements at wherever they want on the screen. The user would need to turn on the Unity Game Engine software and start doing certain gestures at certain locations around the screen, and the desired circuit element would appear at that location of the screen.
+					</p>
+				</div>
+
+				<div id = "framework">
+
+					<h3>Framework </h3>
+
+
+					<p>The framework of the design is as follow:</p>
+					<p style = "text-align :center">
+					<img src = "circuitsleap/flowchart.png" alt = "Flowchart" width = "420" height = "480" align = "middle">
+					</p>
+
+
+					<p> Leap Motion can recognize four basic hand gestures, and four basic circuit elements associates with each gesture: </p>
+
+					<table class="table table-bordered">
+    					<thead>
+      						<tr>
+				        		<th></th>
+						        <th>Circle</th>
+						        <th>Swipe</th>
+						        <th>Key Tap</th>
+						        <th>Screen Tap</th>
+      						</tr>
+    						</thead>
+	    				<tbody>
+						    <tr>
+						        <td>Motion</td>
+						        <td><img src="https://developer.leapmotion.com/images/docs/Leap_Gesture_Circle.png" alt="Circle" width = "140" height = "100" ></td>
+
+						        <td><img src="https://developer.leapmotion.com/images/docs/Leap_Gesture_Swipe.png" alt="Swipe" width = "140" height = "100" ></td>
+
+						        <td><img src="https://developer.leapmotion.com/images/docs/Leap_Gesture_Tap.png" alt="Tap" width = "140" height = "100" ></td>
+
+						        <td><img src="https://developer.leapmotion.com/images/docs/Leap_Gesture_Tap2.png" alt="ScreenTap" width = "140" height = "100" ></td>
+
+						    </tr>
+						    <tr>
+						        <td>Circuit Elements</td>
+						        <td><img src="circuitsleap/src/trimmedinductor.png" alt="Circle" width = "140" height = "50" ></td>
+						        <td><img src="circuitsleap/src/trimmedpower.png" alt="Circle" width = "70" height = "100"></td>
+						        <td><img src="circuitsleap/src/trimmedcapacitor.png" alt="Circle" width = "140" height = "50" ></td>
+						        <td><img src="circuitsleap/src/trimmedresistor.png" alt="Circle" width = "140" height = "50" ></td>
+						    </tr>
+
+						    <tr>
+						        <td></td>
+						        <td>Inductor</td>
+						        <td>Voltage Source</td>
+						        <td>Capacitor</td>
+						        <td>Resistor</td>
+						    </tr>
+			    		</tbody>
+		  			</table>
+				</div>
+
+				<div id = "connect">
+
+					<h3>Connect Unity with Leap Motion</h3>
+					<p>
+					One of our biggest challenges is to connect Unity with Leap Motion. Although Leap Motion has Unity documentation written in C#, it was not explicitly stated how the two things connect with one another.
+					</p>
+
+					<p>
+					The gist of the connection is that every time Unity updates the animation frame, Leap Motion should listen (i.e. provide a new set of information on the position and motion of hands) to the hands. The following code shows the how to combine the two devices together:
+					</p>
+
+					<pre><code class="language-csharp">
+public class myscript: MonoBehaviour{	
+
+	void Start(){
+	}
+
+	void Update(){
+			SampleListener listener = new SampleListener ();
+			Controller controller = new Controller ();
+			controller.AddListener (listener);
+			controller.RemoveListener (listener);
+			controller.Dispose ();
+	}
+}
+
+class SampleListener : Listener
+{
+	private void SafeWriteLine (string line)
+	{
+	}
+	public override void OnConnect (Controller controller)
+	{
+	}
+	public override void OnFrame (Controller controller)
+	{
+	}	
+	if (!frame.Hands.IsEmpty || !frame.Gestures ().IsEmpty) {
+		SafeWriteLine ("No hands");
+	}
+}
+					</code></pre>		
+				</div>
+
+				<div id = "detect">
+
+					<h3>Detect Hand Motion and Position </h3>
+
+					<p>The <a href = "https://developer.leapmotion.com/documentation/cpp/index.html">Leap Motion SDK </a>website provides a comprehensive guide for first timers to understand the theory behind detection. However, in this program, we only need to know two things: </p>
+					<ul>
+						<li> Hand Posiiton -- which is determined by the normal vector of the palm</li>
+						<li> Hand Gesture -- which is a built-in library that can be enabled by the users</li>
+					</ul>
+
+					<p>
+					All detection would occur as each frame is updated, hence most of the code here would be placed in OnFrame function. The challenge is to continuously update the position and motion of the hand in each frame. However, since human motion are generally unpredictable, we found out that <font color = "red"> Leap motion could not detect hands that either quickly move in space or quickly change gestures </font>. We also discovered that amongst the four gestures detectable by leap motion, the most significant ones are <font color ="red">swipe</font> and <font color ="red">circle</font>.
+					</p>
+
+					<p>
+					In any case, the sample program would utilize all four gestures, and programmers can customize it however they want.  
+					</p>
+
+					<p>
+					First, we need to enable the four gestures in <code class="language-csharp">public override void OnConnect</code>:
+					</p>
+
+					<pre><code class="language-csharp">
+public override void OnConnect (Controller controller)
+{
+	controller.EnableGesture (Gesture.GestureType.TYPE_CIRCLE);
+	controller.EnableGesture (Gesture.GestureType.TYPE_SWIPE);
+	controller.EnableGesture (Gesture.GestureType.TYPE_KEYTAP);
+	controller.EnableGesture (Gesture.GestureType.TYPE_SCREENTAP);
+}
+					</code></pre>
+
+					<p>
+					Second, we need to obtain the normal vector of the hands and scale it accordingly such the coordinates on the screen matches the coordinates of Leap Motion:
+					</p>
+
+					<pre><code class="language-csharp">
+public override void OnFrame (Controller controller)
+{
+	// Get the most recent frame and report some basic information
+	Frame frame = controller.Frame ();
+	foreach (Hand hand in frame.Hands) {
+	float i =0;
+	float j =0;
+		// Get the hand's normal vector and direction
+		Vector normal = hand.PalmNormal;
+		Vector direction = hand.Direction;
+		//scale x-coordinates of leap motion
+		i = (float)hand.PalmPosition.x ;
+		Clicktime.finali = -i*40/300 + 10; 
+		//scale y-coordinates of leap motion
+		j = (float)hand.PalmPosition.y;
+		Clicktime.finalj = -40 + 40*j/150 + 10 ; 
+	}
+}
+					</code></pre>
+
+					<p>
+					Third, within the same function but after the hand position detection function, we need to detect each gesture and assign a reference letter for each kind of gesture. The reference letters would be useful when we are trying to assign a circuit element to each gesture:
+					</p>
+
+					<pre><code class="language-csharp">
+public override void OnFrame (Controller controller)
+{
+...
+	GestureList gestures = frame.Gestures ();
+	for (int i = 0; i < gestures.Count; i++) {
+		Gesture gesture = gestures [i];
+		switch (gesture.Type) {
+		case Gesture.GestureType.TYPE_CIRCLE:
+			Clicktime.gesture = 'i';
+			CircleGesture circle = new CircleGesture (gesture);
+			break;
+		case Gesture.GestureType.TYPE_SWIPE:
+			Clicktime.gesture = 'v';
+			SwipeGesture swipe = new SwipeGesture (gesture);
+			break;
+		case Gesture.GestureType.TYPE_KEYTAP:
+			Clicktime.gesture = 'c';
+			CircleGesture keytap = new KeyTapGesture (gesture);
+			break;
+		case Gesture.GestureType.TYPE_SCREENTAP:
+			Clicktime.gesture = 'r';
+			SwipeGesture screentap = new ScreenTapGesture (gesture);
+			break;
+		default:
+			SafeWriteLine ("  Unknown gesture type.");
+			Clicktime.clicktime = 0;
+			break;
+		}
+	}
+}
+					</code></pre>
+				</div>
+				<div id = "element">
+				</div>
 			</div>
 		</div>
 
@@ -53,3 +267,4 @@
 </body>
 
 </html>
+
