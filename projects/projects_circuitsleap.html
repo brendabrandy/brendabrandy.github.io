@@ -27,7 +27,8 @@
 	          		<li><a href="#framework">Framework</a></li>
 	          		<li><a href="#connect">Connect Unity with Leap Motion</a></li>
 	          		<li><a href="#detect">Detect Hand Motion and Position</a></li>
-	          		<li><a href="#close">Close the Circuit</a></li>
+	          		<li><a href="#element">Place the element</a></li>
+	          		<li><a href="#outcome">Outcome</a></li>
 	          		<li><a href="#nextsteps">Next Steps</a></li>
 
         		</ul>
@@ -245,6 +246,88 @@ public override void OnFrame (Controller controller)
 					</code></pre>
 				</div>
 				<div id = "element">
+
+					<h3>Place the element</h3>
+
+					<p>
+					From this point onwards, since we already got the information we need from the Leap Motion, we would write the rest of the code in the <code class = "language-csharp">public class myScript: MonoBehavior</code>. To place the circuit element that is associated with each hand gesture, we need to set the circuit element as a prefab and retrieve the circuit element from the prefab folder.
+					</p>
+
+					<p>
+					We would create a function that takes in position coordinates (of the palm, ideally) and at every screen update, the program would check the gesture of the user's hand and call that function specifically to spawn a circuit element on the location specified.
+					</p>
+
+					<pre><code class = "language-csharp">
+void Update(){
+	...
+	approximateposition (Clicktime.finali, Clicktime.finalj);
+		switch (Clicktime.gesture) {
+		case 'c':
+			//SpawnInductor (20,20, Clicktime.k);
+			SpawnInductor (Clicktime.finali, Clicktime.finalj, -100);
+			Debug.Log ("Spawning inductor");
+			break;
+		case 'k':
+			//SpawnCapacitor(20,-20,Clicktime.k);
+			SpawnCapacitor (Clicktime.finali, Clicktime.finalj, -100);
+			Debug.Log ("Spawning capacitor");
+			break;
+		case 's':
+			//SpawnResistor(-20,20,Clicktime.k);
+			SpawnResistor (Clicktime.finali, Clicktime.finalj, -100);
+			Debug.Log ("Spawning resistor");
+			break;
+		case 'w':
+			//SpawnPower (-20,-20,Clicktime.k);
+			SpawnPower (Clicktime.finali, Clicktime.finalj, -100);
+			Debug.Log ("Spawning power");
+			break;
+		}
+
+	void SpawnInductor(float i, float j, float k){
+		inductor_im = GameObject.Instantiate (Inductor_im,new Vector3(i,j,k),Quaternion.identity) as GameObject;
+		}
+	
+	void SpawnCapacitor(float i, float j, float k){
+		capacitor_im = GameObject.Instantiate (Capacitor_im,new Vector3(i,j,k),Quaternion.identity) as GameObject;
+		}
+	
+	void SpawnPower(float i, float j, float k){
+		power_im = GameObject.Instantiate (Power_im,new Vector3(i,j,k),Quaternion.identity) as GameObject;
+		}
+	void SpawnResistor(float i, float j, float k){
+		resistor_im = GameObject.Instantiate (Resistor_im,new Vector3(i,j,k),Quaternion.identity) as GameObject;
+		}
+}
+					</pre></code>
+				<p>
+					The function <code class = "language-csharp">approximatelocation(Clicktime.finali, Clicktime.finalj)</code> is used during prototype phase to test the code. The details of the code could be found in the github page.
+				</p>
+				</div>
+
+
+				<div id = "outcome">
+
+					<h3>Outcome</h3>
+
+					<p>We sucessfully placed the four circuit elements onto the Unity Screen with different hand gestures.</p>
+
+					<img alt = "result" src = "circuitsleap/img/IMG_1943.jpg"  width = "700" height = "480"/>
+						
+				</div>
+
+				<div id = "nextsteps">
+
+					<h3>Next Steps</h3>
+
+					<p>For those interested in obtaining the code and updating it, the github page for circuitsleap could be found <a href = "https://github.com/brendabrandy/courses/commit/a7cdac4df3fa8746054af6ed9c3afcbf2eba3b6a">here. </a> </p>
+					<p>Some suggestions for future improvement include: </p>
+
+					<ul>
+						<li>Connecting the ends of circuit elements together</li>
+						<li>Developing a suitable coordinate system for placing different circuit elements onto the screen</li>
+						<li>Developing a backend program such that the software can perform Nodal analysis on the system.</li>
+					</ul>
 				</div>
 			</div>
 		</div>
