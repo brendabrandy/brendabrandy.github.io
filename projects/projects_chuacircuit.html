@@ -15,23 +15,106 @@
 		<h1 style = "color: black; text-align : center"> CHUA'S CIRCUIT </h1>
 		<hr>
 
-		<div class = "row" style = "text-align:center">
-
-			<img title="working" alt="working" src="http://cdn.flaticon.com/png/256/3497.png" />
-
-			<p> Still working on it!</p>
-
-		</div>
-
 		<div class = "row">
 
 			<nav class = "col-sm-3" id = "myScrollSpy">
 
 				<ul class="nav nav-pills nav-stacked">
+					<li><a href = "#introduction"> Introduction </a></li>
+					<li><a href = "#drawing"> Drawing out Chua's Circuit </a></li>
+					<li><a href = "#lyapunov">Determining the Lyapunov Exponent</a></li>
+					<li><a href = "#experimental">Treating the data experimentally</a></li>
+					<li><a href = "#results">Results</a></li>
+					<li><a href = "#conclusion">Conclusions and Reflections</a><li>
+					<li><a href= = "#reference">References</a></li>
         		</ul>
       		</nav>
 
 			<div class = "col-sm-9">
+
+				<div id = "introduction">
+
+					<h3>Introduction </h3>
+
+					<p>According to Wolfram Alpha, chaos was defined as the “Irregular unpredictable behavior such as that exhibited by some classes of nonlinear differential equations”. Due to a slight change in initial conditions, a system could exhibit drastically different behaviors. Chaos could be quantified by their Lyanpunov exponent, which was defined as the mean exponential rate of divergence. If a system has a positive Lyanpunov exponent, it implies that the system is chaotic; if a system has only a negative Lyapunov exponent, it implies that the system is non-chaotic.  </p>
+
+					<p>In this project, we wanted to develop a general method to detect chaos in a system. There are cases where there is a set of deterministic differential equations that governs the system. But very often, in real life, scientist would only obtain a set of data for a system. Examples include in electrical engineering, one may only obtain the voltages across one element in the system, or in economics, one may only obtain one set of values of corn across a time span of five years etc. We would like to have a “canned” method that allows people with either differential equations or experimental data to be able to determine the chaos within the system. </p>
+
+ 					<p>Secondly, we also wanted a method to determine chaos within a generic circuit. An electrical engineer might make a chaotic circuit by mistake. In theory, an inductor would act like a pure inductor and a capacitor would act like a pure capacitor. However, in real life, there are inherent imperfections in an actual inductor and capacitor. An inductor could have capacitive properties, while a capacitor has inductive properties. Moreover, the wires itself also has an inherent resistance and capacitance. Hence, we would like to produce a code that could accept a set of generic data and determine chaos within the circuit. </p>
+ 					<div class = "row">
+
+	 					<div class = "col-sm-4"></div>
+	 					<div class = "col-sm-4"> 
+
+	 					<img src = "ChuasCircuit/chuas_circuit_diagram.png" width = "250" height = "200" />
+	 					</div>
+	 					<div class = "col-sm-4"></div>
+ 					</div>
+
+ 					<p>Chua’s circuit [1] is commonly studied circuit. Its popularity comes from the fact that it is easy to construct and that multiple initial conditions could give rise to chaos. In analysis, the voltage going through the capacitors and the current going through the inductor is investigated because capacitors tends to hinder changes in voltage and inductors tend to hinder changes in current. </p>
+
+ 					<p> In Chua’s circuit, multiple attractors were discovered [2] and one of the goals of the project was to try to recreate the attractors. The attractor that we focused on in further analysis is the double scroll, because it was a newly found attractor at that time where chaos existed. The differential equations are as follow: </p>
+
+ 					<div class = "row">
+
+	 					<div class = "col-sm-5"></div>
+	 					<div class = "col-sm-7"> 
+
+	 					<img src = "ChuasCircuit/equations.png" height = "100" />
+	 					</div>
+	 					<!--<div class = "col-sm-4"></div>-->
+ 					</div>
+
+				</div>
+				<div id = "drawing">
+					<h3>Drawing out Chua's Circuit</h3>
+					<p>
+					RK4 was used to solve the differential equations up to 200,000 time steps. RK4 is one of the most commonly used algorithms to solve differential equations, being both efficient and accurate. A large number of data points were chosen to ensure that there were enough divergences happening in the attractor such that a more accurate average could be taken. 
+					</p>
+
+					<p>To evaluate whether our algorithms work, we compared different attractors obtained from the analysis of Chua [1] [2]. It was found that the shape of the attractors closely match each other, validating our method of visualizing Chua's Circuit. </p>
+
+					<div class = "row">
+						<div class ="col-sm-6">
+							<img src = "ChuasCircuit/chaotic.png" width = "350" height = "280" />
+						</div>
+						<div class = "col-sm-6">
+							<img src = "ChuasCircuit/doublescroll.png" width = "350" height = "280" />
+						</div>
+					</div>
+					<div class = "row">
+						<div class = "col-sm-6">
+							<img src = "ChuasCircuit/stable.png" width = "350" height = "280" />
+						</div>
+						<div class = "col-sm-6">
+							<img src = "ChuasCircuit/hyperbolic.png" width = "350" height = "280" />
+						</div>
+					</div>
+					<div class = "row">
+						<p><font size = "2">All the pictures are generated from the same differential equations with different initial conditions. The top left picture shows a chaotic attractor with V1 = 9.13959, V2 = -1.35164, I = -59.2869. The top right picture shows a double scroll with V1 = 0.15264, V2 = -0.02281, I = 0.38127. The bottom left picture shows a stable limit cycle with V1 = 1.45305, V2 = -4.36956, I = 0.15034. The bottom right picture shows a hyperbolic periodic orbit with V1 = 10.00717, V2 = 0.80100, I = -23.90375. V1 indicates voltage across capacitor 1, V2 indicates voltage across capacitor 2, I indicates current across inductor.</font></p>
+					</div>
+				</div>
+				<div id = "lyapunov">
+					<h3>Determining the Lyapunov Exponent</h3>
+					<p>In Wolf et al. [3], they discussed of a method that determines chaos in an experimental time series. The method includes time-shifting the data sets to obtain three or more sets of data, and then tracking the divergence from a chosen point (called the fiduciary point) on the trajectory constantly. To determine divergence, a near point to the fiduciary point was chosen base on distance and angle from the direction of chaos and was constantly tracked and replaced when the divergence expanded.  This method was equivalent to studying an error bar, or two initial conditions with slight differences and tracking their difference in each other as time goes on. As time goes on, the error bar increases exponentially, until the error bar became so large it spans across the 3-space system. </p>
+
+					<p>To implement Wolf's method, we first need to determine a "fiduciary point". The fiduciary point would be the point that the program constantly tracks along the trajectory. And to determine how a slight change in initial conditions in the Chua’s circuit would result in drastic differences, the program would need to first evaluate all points on the trajectory and determine the nearest point to the fiduciary point. However, the program also took into consideration that it could not choose nearest points that were immediately before or after the fiduciary point, because the Lyapunov exponent at those points would definitely be zero – the fiduciary point was simply tracing the nearest point. Instead, the program takes a point that is not immediately before or after the fiduciary point but still chose the point closest to the fiduciary point. As the distance between the fiduciary point and the chosen point passes the threshold (which is 2.5% of the total space that the attractor was enclosed in), another “nearest point” was chosen. However, this time, the choice also takes into account the “direction of chaos” – the vector drawn between the candidate point and the fiduciary point needs to be within thirty degrees of the vector drawn between the fiduciary point and the original “nearest point”. This method would then preserve the “direction of chaos”, yielding us a more accurate Lyapunov exponent. </p>
+					<div class = "row">
+						<div class = "col-sm-1"></div>
+						<div class = "col-sm-10">
+							<img src = "ChuasCircuit/fiduciarypoint.png" width = "500" height = "400" />
+						</div>
+						<div class = "col-sm-1"></div>
+					</div>
+					<div class = "row">
+							<p><font size = "2" >The red point indicates a fiduciary point and the blue point indicates a comparison point. As seen, the points originally started out very close to each other, but the white rods grew increasingly larger. This phenomena is characteristic of chaos and implies that similar initial conditions does not indicate similar final results.</font></p>
+					</div>
+					<p>Secondly, we track the divergence from the fiduciary point. The distances between the fiduciary point and the nearest point are monitored until it reaches a threshold, and then the nearest point would be replaced by the aforementioned method.
+					</p>
+					<p>
+						Lastly, the average exponential growth of distances was calculated. After tracking a series of divergences, we found out that there were “bursts” of growth within the data set. That burst of growth would be determined as the “exponential rate” of divergence. We take the ratio between the final distance and the initial distance between the nearest point and the fiduciary point, and by taking the running average natural log / log base two of the ratio, we could obtain the lyapunov exponent.
+					</p>
+				</div>
 			</div>
 		</div>
 
