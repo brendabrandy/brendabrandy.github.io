@@ -15,23 +15,41 @@
 		<h1 style = "color: black; text-align : center"> TIC TAC TOE </h1>
 		<hr>
 
-		<div class = "row" style = "text-align:center">
-
-			<img title="working" alt="working" src="http://cdn.flaticon.com/png/256/3497.png" />
-
-			<p> Still working on it!</p>
-
-		</div>
-
 		<div class = "row">
-
 			<nav class = "col-sm-3" id = "myScrollSpy">
-
 				<ul class="nav nav-pills nav-stacked">
+	          		<li><a href="#introduction">Introduction</a></li>
+	          		<li><a href="#flowchart">Flow Chart</a></li>
+	          		<li><a href="#interface">3-by-3 interface</a></li>
+	          		<li><a href="#winning">Winning Logic</a></li>
+	          		<li><a href="#reset">Reset Logic</a></li>
+	          		<li><a href="#twist">The twist</a></li>
+	          		<li><a href="#reflections">Reflections</a></li>
         		</ul>
       		</nav>
 
 			<div class = "col-sm-9">
+				<div id = "introduction">
+					<h3>Introduction </h3>
+					<p>Digital Logic Design is the first lesson an electrical engineer takes in Cooper. You get a taste of actually designing something on your own and implementing it. There is boolean logic, timing, memory and different kinds of ICs a freshman electrical engineer needs to learn. </p>
+					<p>
+					The goal of our project is to use digital logic design concepts to make a basic 3 by 3 tic tac toe game. Each user would have their own little keyboard that they can use to play the game. The logic would see who wins and record the scores. If the user decided to start a new round or a new game, the user can push the button and reset whatever they want. 
+					</p>
+					<p>
+					However, there is a twist to the game! We decided to punish the player that uses too much time to discern his / her move. If the player doesn't play his / her move in 5 seconds, the tic tac toe board would switch the positions of the last two moves. This twist makes the circuit itself harder to implement and is the core of our project. 
+					</p>
+
+				</div>
+
+				<div id = "flowchart">
+					<p>
+						As engineers, it is good practice to break down a big problem into little problems, and breaking it further down. Hence, we are breaking down the big tic tac toe problem to tiny tasks.The following chart shows the approach that we are taking. 
+					</p>
+
+					<p style = "text-align :center">
+					<img src = "DLD/flowchart.png" alt = "Flowchart" width = "600" height = "400" align = "middle">
+					</p>
+				</div>
 
 				
 			</div>
