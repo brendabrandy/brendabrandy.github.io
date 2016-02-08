@@ -46,11 +46,13 @@
 					<h3>Introduction </h3>
 					<p> Air pollution has been a topic of debate and discussion ever since the 1990s. As people become more and more aware of their actions to the environment, they are also becoming more vigilante about the air that they breathe in. We often refer to weather reports for a better understanding of the air quality and the concentration of pollutants. For future research purposes, all these pollutant information are well-recorded in some databse in the US government along with other weather details in the past 20 years. </p>
 
+					<p></p>
+
 					<p>
 					POLLDENTIFY aims to analyze these pollutant records from weather stations to generate new insights about the air around us. Through using the <a href="https://en.wikipedia.org/wiki/Atmospheric_dispersion_modeling#Gaussian_air_pollutant_dispersion_equation"> Gaussian Dispersion Model </a> -- a model commonly used by national weather stations for weather forecasting and by other government agencies for decision making -- we analyzed 137 sample points in the United States to track the source of pollution on each sample point monthly for the past 15 years. We gathered and processed approximately one hundred thousand sample points in total.  
 					</p>
 
-<img  height="500" width="900" src = "https://maps.googleapis.com/maps/api/staticmap?center=Kansas,USA&scale=2&zoom=4&size=900x500&maptype=roadmap&markers=color:blue&markers=size:tiny%7Clabel:S%7C25.0,-97.5%7C25.0,-100%7C27.5,-82.5%7C27.5,-97.5%7C27.5,-100.0%7C27.5,-105.0%7C30.0,-82.5
+<img  height="500" width="900" src = "https://maps.googleapis.com/maps/api/staticmap?center=Kansas,USA&scale=2&zoom=4&size=900x600&maptype=roadmap&markers=color:blue&markers=size:tiny%7Clabel:S%7C25.0,-97.5%7C25.0,-100%7C27.5,-82.5%7C27.5,-97.5%7C27.5,-100.0%7C27.5,-105.0%7C30.0,-82.5
 %7C30.0,-85%7C30.0,-87.5%7C30.0,-90%7C30.0,-92.5%7C30.0,-95%7C30.0,-97.5%7C30.0,-100%7C30.0,-105.0%7C30.0,-107.5%7C30.0,-110.0
 %7C30.0,-112.5%7C30.0,-115%7C32.5,-80%7C32.5,-82.5%7C32.5,-85%7C32.5,-87.5%7C32.5,-90%7C32.5,-92.5%7C32.5,-95%7C32.5,-97.5
 %7C32.5,-100%7C32.5,-102.5%7C32.5,-105%7C32.5,-107.5%7C32.5,-110%7C32.5,-112.5%7C32.5,-115%7C35,-77.5%7C35,-80%7C35,-82.5
@@ -71,7 +73,17 @@
 				<div id = "webCrawl">
 
 					<h3>Web Crawling </h3>
-					<p> To create a super smart web app that traces the historical and current sources of pollution for a given geographical location using US wind and pollution data  </p>
+					<p> From the algorithm developed, it occurs to our team that we would need data including concentration of pollutants, elevation of a sample point, direction and magnitude of wind in order to generate the coefficients required to calculate the emission of pollutants of every sample point. In order to obtain reliable data, we first looked into governmental databases. The governmental data sources that we decided to use include: </p>
+
+					<ul>
+						<li> EPA -- The Environmental Protection Agency produces extremely fine datapoints for all their pollutants. There are hourly, daily and yearly summaries of each pollutant. For Polldentify, we decided to limit our scope to only five pollutants -- Ozone, Sulphur Dioxide, Nitrogen Dioxide, Carbon Monoxide and PM10. The first four pollutants are the parameters used to measure the AQI of the US, and PM10 concentrations are generally a concern because it reduces visibility and can irritate the eyes and the respiratory system.</li>
+
+						<li>NOAA -- The National Oceanic and Atmospheric Administration records direction and magnitude of wind every day and summarizes their data in a daily, monthly and yearly basis. We took the monthly wind direction for our calculations.</li>
+					</ul>
+
+					<p>However, we realize that governmental data is not sufficient. First, the aforementioned agencies only update their databases once every six months, hence we would not be able to take the real time concentration of pollutant directly. Secondly, there is neither formal nor convenient record that relates latitude and longitude with elevation and state. Therefore, we used Google Elevation API and Google Geocoding API to obtain the elevation and state at each sampling latitude and longitude. </p>
+
+					<p>All web crawling code is written in Python (except for NOAA wind data, where we used MATLAB to open nc files and store it into csv). For EPA, we can send URL requests directly to the EPA, unzip and download their files, as for Google related services, we requested different API keys in order to obtain different services. </p>
 
 				</div>
 				
