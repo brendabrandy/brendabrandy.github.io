@@ -4,11 +4,13 @@
 		<div id="header"></div>
 		<meta name="viewport" content="width=device=width,initial-scale=1.0">
 		<link href="../bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+		<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+		<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 		<script src = "http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
-	<div id = "menu"></div>	
+	<div id = "menu"></div>
 
 	<div class = "container" style = "margin-bottomw:30px">
 
@@ -22,7 +24,7 @@
 				<ul class="nav nav-pills nav-stacked">
 					<li><a href="#objective">Objective</a></li>
 	          		<li><a href="#introduction">Introduction</a></li>
-	          		<li><a href="#webcrawl">Web Crawling for information</a></li>
+	          		<li><a href="#webCrawl">Web Crawling for information</a></li>
 	          		<li><a href="#organize">Organizing the data</a></li>
 	          		<li><a href="#algorithm">Developing the Algorithm</a></li>
 	          		<li><a href="#machine">Machine Learning</a></li>
@@ -49,10 +51,10 @@
 					<p></p>
 
 					<p>
-					POLLDENTIFY aims to analyze these pollutant records from weather stations to generate new insights about the air around us. Through using the <a href="https://en.wikipedia.org/wiki/Atmospheric_dispersion_modeling#Gaussian_air_pollutant_dispersion_equation"> Gaussian Dispersion Model </a> -- a model commonly used by national weather stations for weather forecasting and by other government agencies for decision making -- we analyzed 137 sample points in the United States to track the source of pollution on each sample point monthly for the past 15 years. We gathered and processed approximately one hundred thousand sample points in total.  
+					POLLDENTIFY aims to analyze these pollutant records from weather stations to generate new insights about the air around us. Through using the <a href="https://en.wikipedia.org/wiki/Atmospheric_dispersion_modeling#Gaussian_air_pollutant_dispersion_equation"> Gaussian Dispersion Model </a> -- a model commonly used by national weather stations for weather forecasting and by other government agencies for decision making -- we analyzed 137 sample points in the United States to track the source of pollution on each sample point monthly for the past 15 years. We gathered and processed approximately one hundred thousand sample points in total.
 					</p>
 
-<img  height="500" width="900" src = "https://maps.googleapis.com/maps/api/staticmap?center=Kansas,USA&scale=2&zoom=4&size=900x600&maptype=roadmap&markers=color:blue&markers=size:tiny%7Clabel:S%7C25.0,-97.5%7C25.0,-100%7C27.5,-82.5%7C27.5,-97.5%7C27.5,-100.0%7C27.5,-105.0%7C30.0,-82.5
+<img  height="600" width="900" src = "https://maps.googleapis.com/maps/api/staticmap?center=Kansas,USA&scale=2&zoom=4&size=900x600&maptype=roadmap&markers=color:blue&markers=size:tiny%7Clabel:S%7C25.0,-97.5%7C25.0,-100%7C27.5,-82.5%7C27.5,-97.5%7C27.5,-100.0%7C27.5,-105.0%7C30.0,-82.5
 %7C30.0,-85%7C30.0,-87.5%7C30.0,-90%7C30.0,-92.5%7C30.0,-95%7C30.0,-97.5%7C30.0,-100%7C30.0,-105.0%7C30.0,-107.5%7C30.0,-110.0
 %7C30.0,-112.5%7C30.0,-115%7C32.5,-80%7C32.5,-82.5%7C32.5,-85%7C32.5,-87.5%7C32.5,-90%7C32.5,-92.5%7C32.5,-95%7C32.5,-97.5
 %7C32.5,-100%7C32.5,-102.5%7C32.5,-105%7C32.5,-107.5%7C32.5,-110%7C32.5,-112.5%7C32.5,-115%7C35,-77.5%7C35,-80%7C35,-82.5
@@ -86,25 +88,36 @@
 					<p>All web crawling code is written in Python (except for NOAA wind data, where we used MATLAB to open nc files and store it into csv). For EPA, we can send URL requests directly to the EPA, unzip and download their files, as for Google related services, we requested different API keys in order to obtain different services. </p>
 
 				</div>
-				
+
+				<div id = "organize">
+					<h3>Organizing the Data </h3>
+					<p> The data is especially hard to organize because the data set itself is extremely huge! We have more than 20,000 rows and 100,000 data points! However, by utilizing PySpark -- a Python-compatible big data processing platform -- and Pandas, we could organize our data elegantly. PySpark is built for the generic RDD (Resilient Distributed Dataset) processing, while a dataframe has in-built metadata (because it is in a table format) and one could query through the table easily. We successfully save all the aforementioned data first as their respective csv and then concatenate them to one major dataframe. </p>
+				</div>
+
+				<div id = "algorithm">
+
+					<h3>Developing the algorithm </h3>
+					<p> To create a super smart web app that traces the historical and current sources of pollution for a given geographical location using US wind and pollution data  </p>
+
+				</div>
 
 			</div>
 		</div>
 
-		
+
 
 	</div>
 
-	<div id = "footer"></div>	
-	<script> 
+	<div id = "footer"></div>
+	<script>
 			$(function(){
-		  	  	$("#header").load("../header.html"); 
+		  	  	$("#header").load("../header.html");
 		  	  	$("#menu").load("projects_menu.html");
 		  	  	$("#menu.index").addClass("active");
 		  	  	$("#footer").load("../footer.html");
-		  	  
+
 			});
-  		</script> 
+  		</script>
 
 </body>
 
