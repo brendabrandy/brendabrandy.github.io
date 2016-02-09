@@ -4,8 +4,6 @@
 		<div id="header"></div>
 		<meta name="viewport" content="width=device=width,initial-scale=1.0">
 		<link href="../bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
-		<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
-		<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 		<script src = "http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
@@ -92,12 +90,30 @@
 				<div id = "organize">
 					<h3>Organizing the Data </h3>
 					<p> The data is especially hard to organize because the data set itself is extremely huge! We have more than 20,000 rows and 100,000 data points! However, by utilizing PySpark -- a Python-compatible big data processing platform -- and Pandas, we could organize our data elegantly. PySpark is built for the generic RDD (Resilient Distributed Dataset) processing, while a dataframe has in-built metadata (because it is in a table format) and one could query through the table easily. We successfully save all the aforementioned data first as their respective csv and then concatenate them to one major dataframe. </p>
+
+					<p><img src = "Polldentify/dataframe.png" /></p>
 				</div>
 
 				<div id = "algorithm">
 
 					<h3>Developing the algorithm </h3>
-					<p> To create a super smart web app that traces the historical and current sources of pollution for a given geographical location using US wind and pollution data  </p>
+					<p> When formulating our algorithm, we first go online to see what most government agencies use to predict the flow of pollution within a city. In our search, the most relevant equation is the Gaussian Dispersion Equation, which is as follow:  </p>
+
+					<p><img src = "https://upload.wikimedia.org/math/3/0/c/30c399a65f6756ae810de5fc789f09dc.png", alt = "gaussian dispersion equation" /></p>
+
+					<p>The concrete description of the variables could be found <a href = "https://en.wikipedia.org/wiki/Atmospheric_dispersion_modeling#Gaussian_air_pollutant_dispersion_equation">here</a>. In short, the equation essentially shows a linear relationship between concentration of pollutants (C) and rate of emission of pollutants from source (Q). </p>
+
+					<p><img src = "Polldentify/one_source.png" /></p>
+
+					<p>Since the relationship is linear, we could impose the superposition principle and infer that the concentration at a city A can be expressed as a summation of rate of emission of pollutants from other cities, and the coefficients that is multiplied to the rate of emission can be determined by the geographical locations and wind data on a certain day, which would be: </p>
+
+					<p><img src = "Polldentify/more_source.png" /></p>
+
+					<p> Our algorithm builds upon the linearity between concentration of pollutants and rate of emission of pollutants and draws a matrix for each date that we have (in our case, since our data is monthly, we are also calculating a monthly average of sources of pollutants.</p>
+
+					<p><img src = "Polldentify/all_source.png" /></p>
+
+
 
 				</div>
 
